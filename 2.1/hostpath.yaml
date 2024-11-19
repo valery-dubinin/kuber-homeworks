@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hostpathdaemon
+  labels:
+    app: hwdaemon
+spec:
+  selector:
+    matchLabels:
+      app: hwdaemon
+  template:
+    metadata:
+      labels:
+        app: hwdaemon
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool:latest
+        volumeMounts:
+        - name: varlog
+          mountPath: /logs
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log

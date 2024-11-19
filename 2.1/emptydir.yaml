@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw-deployment
+  labels:
+    app: hwdeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hwdeploy
+  template:
+    metadata:
+      labels:
+        app: hwdeploy
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        command: ['sh', '-c', 'while true; do echo "Current time is $(date)" >> /output/file.log; sleep 5; done']
+        volumeMounts:
+        - mountPath: /output
+          name: shared
+      - name: multitool
+        image: wbitt/network-multitool:latest
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /input
+          name: shared
+      volumes:
+      - name: shared
+        emptyDir: {}
+     
