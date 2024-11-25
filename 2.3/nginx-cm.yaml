@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ngix-cm
+data:
+  index.html: |
+    <html>
+    <body>
+      <h1>Test ConfigMap page</h1>
+    </body>
+    </html> 
