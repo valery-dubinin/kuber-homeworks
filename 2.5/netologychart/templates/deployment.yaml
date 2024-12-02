@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: hwdeploy
+spec:
+  replicas: {{ .Values.replicas}}
+  selector:
+    matchLabels:
+      app: hwdeploy
+  template:
+    metadata:
+      labels:
+        app: hwdeploy
+    spec:
+      containers:
+      - name: nginx
+        image: {{ .Values.image }}:{{ .Values.tag }}
+        ports:
+        - containerPort: 80

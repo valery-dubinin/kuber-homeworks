@@ -1,0 +1,5 @@
+name: netologychart1
+namespace: default
+replicas: 3
+image: nginx
+tag: 1.19.0
